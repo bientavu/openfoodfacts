@@ -5,7 +5,7 @@ class Sql:
         self.mydb = mysql.connector.connect(
             host = 'localhost',
             user = 'root',
-            password = 'azqsazqs282'
+            password = ''
         )
 
     def dbinit(self):
