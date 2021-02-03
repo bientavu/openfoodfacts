@@ -1,5 +1,6 @@
 import mysql.connector
 from core.openfoodfacts import products_lst
+from core.constants import CATEGORIES
 
 class Sql:
     def __init__(self):
@@ -29,8 +30,9 @@ class Sql:
 
     def insertdata(self):
         self.mycursor = self.mydb.cursor()
-        sql = 'INSERT INTO Product (name_product, link) VALUES (%s, %s)'
-        values = products_lst
-        self.mycursor.executemany(sql, values)
-        self.mydb.commit()
+        for category in CATEGORIES:
+            sql = "INSERT INTO Category (name_cat) VALUES (%s)"
+            values = (f'{category}')
+            self.mycursor.executemany(sql, values)
+            self.mydb.commit()
 
