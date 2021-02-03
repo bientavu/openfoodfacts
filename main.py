@@ -4,7 +4,7 @@ from core.openfoodfacts import Data
 # connection = Sql()
 # connection.dbinit()
 
-grabber = Data()
-grabber._get_information_product()
+import_data = Data()
+import_data._get_information_product()
 
 #connection.insertdata()

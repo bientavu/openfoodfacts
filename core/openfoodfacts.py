@@ -26,6 +26,7 @@ class Data:
                 product['product_name_fr'] = data.get('product_name_fr')
                 product['url'] = data.get('url')
                 product['nutriscore_grade'] = data.get('nutriscore_grade')
+                product['stores'] = data.get('stores')
                 products_lst.append(product)
 
         pprint(products_lst)
