@@ -1,5 +1,5 @@
 import mysql.connector
-from core.openfoodfacts import products_lst
+# from core.openfoodfacts import products_lst
 from core.constants import CATEGORIES
 
 class Sql:
@@ -22,17 +22,26 @@ class Sql:
         Database creation + Tables creation via .sql file
         """
         self.mycursor = self.mydb.cursor()
-        self.mycursor.execute('CREATE DATABASE IF NOT EXISTS openfoodfacts2')
+        self.mycursor.execute('CREATE DATABASE IF NOT EXISTS openfoodfacts')
         sql_file = open('script-db/create_db.sql')
         sql_as_string = sql_file.read()
-        self.mycursor.execute('USE openfoodfacts2')
+        self.mycursor.execute('USE openfoodfacts')
         self.mycursor.execute(sql_as_string, multi=True)
+        self.mydb.commit()
+        self.mycursor.close()
 
-    def insertdata(self):
+    def category_mapping(self):
         self.mycursor = self.mydb.cursor()
+        self.mycursor.execute('USE openfoodfacts3')
         for category in CATEGORIES:
-            sql = "INSERT INTO Category (name_cat) VALUES (%s)"
-            values = (f'{category}')
-            self.mycursor.executemany(sql, values)
+            sql = "INSERT INTO Category (name_cat) VALUES ('{}');".format(category)
+            self.mycursor.execute(sql)
             self.mydb.commit()
+            # print(self.mycursor.rowcount, "record was inserted.")
 
+    def product_mapping(self):
+        self.mycursor = self.mydb.cursor()
+        self.mycursor.execute('USE openfoodfacts3')
+
+
+        
