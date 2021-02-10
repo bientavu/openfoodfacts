@@ -5,6 +5,7 @@ from core.openfoodfacts import Data
 # connection.dbinit()
 
 import_data = Data()
-import_data._get_information_product()
+# import_data.get_information_product()
+import_data.products_dict_to_query()
 
-#connection.insertdata()
+# connection.category_mapping()
