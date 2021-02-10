@@ -2,18 +2,15 @@ import requests
 from core.constants import CATEGORIES
 from pprint import pprint
 
-products_lst = list()
-
 class Data:
     def __init__(self):
-        pass
+        self.products_lst = list()
 
-    def _get_information_product(self):
+    def get_information_product(self):
         """
         Grad the data from the Openfoodfact API
         """
         base_url = 'https://fr.openfoodfacts.org/'
-        # product_name_fr = all_products.get('product_name_fr')
 
         for category in CATEGORIES:
             categorie_url = f'{base_url}categorie/{category}.json'
@@ -27,8 +24,24 @@ class Data:
                 product['url'] = data.get('url')
                 product['nutriscore_grade'] = data.get('nutriscore_grade')
                 product['stores'] = data.get('stores')
-                products_lst.append(product)
+                self.products_lst.append(product)
 
-        pprint(products_lst)
+        # pprint(products_lst)
+        return self.products_lst
 
-        return products_lst
+    def products_dict_to_query(self):
+        """
+        Creates a query that allows to add products informations
+        into the SQL Product Table
+        """
+        sql_product_query = ''
+        for product in self.products_lst:
+            adding_values = [f'"{x}"' for x in product.values()]
+            query = "INSERT INTO Product (%s) VALUES (%s);" % (
+                ", ".join(product.keys()),
+                ", ".join(adding_values),
+                )
+            
+            sql_product_query += query
+
+        pprint(sql_product_query)
