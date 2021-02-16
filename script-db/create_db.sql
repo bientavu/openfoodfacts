@@ -1,16 +1,16 @@
 DROP TABLE IF EXISTS Category;
 CREATE TABLE IF NOT EXISTS Category (
-    id SMALLINT NOT NULL AUTO_INCREMENT,
+    id INT NOT NULL AUTO_INCREMENT,
     name_cat VARCHAR(40) NOT NULL UNIQUE,
     PRIMARY KEY (id)
 );
 
 DROP TABLE IF EXISTS Product;
 CREATE TABLE IF NOT EXISTS Product (
-    id SMALLINT NOT NULL AUTO_INCREMENT,
+    id INT NOT NULL AUTO_INCREMENT,
     name_product VARCHAR(100) NOT NULL,
-    category_fk SMALLINT NOT NULL,
-    store VARCHAR(20) NOT NULL,
+    category_fk INT NOT NULL,
+    store VARCHAR(45) NOT NULL,
     nutriscore VARCHAR(1) NOT NULL,
     link TEXT,
     PRIMARY KEY (id),
@@ -21,9 +21,9 @@ CREATE TABLE IF NOT EXISTS Product (
 
 DROP TABLE IF EXISTS Substitute;
 CREATE TABLE IF NOT EXISTS Substitute (
-    id SMALLINT NOT NULL AUTO_INCREMENT,
-    id_product_to_substitute SMALLINT NOT NULL,
-    id_product_substitute SMALLINT NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
+    id_product_to_substitute INT NOT NULL,
+    id_product_substitute INT NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_idproducttosubstitute_idproduct
         FOREIGN KEY (id_product_to_substitute)

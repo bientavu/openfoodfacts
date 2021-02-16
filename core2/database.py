@@ -1,6 +1,4 @@
 import mysql.connector
-# from core.openfoodfacts import products_lst
-from core.constants import CATEGORIES
 
 class Sql:
     def __init__(self):
@@ -30,23 +28,3 @@ class Sql:
             pass
         self.mydb.commit()
         mycursor.close()
-
-
-class Category:
-    def category_mapping(self):
-        self.mycursor = self.mydb.cursor()
-        self.mycursor.execute('USE openfoodfacts3')
-        for category in CATEGORIES:
-            sql = "INSERT INTO Category (name_cat) VALUES ('{}');".format(category)
-            self.mycursor.execute(sql)
-            self.mydb.commit()
-            # print(self.mycursor.rowcount, "record was inserted.")
-
-
-
-    def product_mapping(self):
-        self.mycursor = self.mydb.cursor()
-        self.mycursor.execute('USE openfoodfacts3')
-
-
-        

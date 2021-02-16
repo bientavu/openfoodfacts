@@ -8,7 +8,7 @@ class Data:
 
     def get_information_product(self):
         """
-        Grad the data from the Openfoodfact API
+        Grab the data from the Openfoodfact API
         """
         base_url = 'https://fr.openfoodfacts.org/'
 
