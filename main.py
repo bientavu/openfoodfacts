@@ -1,11 +1,12 @@
-from core.sql import Sql
-from core.openfoodfacts import Data
+from core.database import Sql
+from core.managers import CategoryManager
 
-connection = Sql()
-connection.dbinit()
+# connection = Sql()
+# connection.dbinit()
 
-# import_data = Data()
-# # import_data.get_information_product()
+import_data = CategoryManager()
+import_data.category_table_mapping()
+# import_data.get_information_product3()
 # import_data.products_dict_to_query()
 
 # connection.category_mapping()

@@ -1,5 +1,5 @@
-from core2.managers import (ProductManager, CategoryManager, SubstituteManager)
-from core2.database import Sql
+from core.managers import ProductManager, CategoryManager, SubstituteManager
+from core.database import Sql
 
 class Product:
 

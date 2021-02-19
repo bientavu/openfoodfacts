@@ -8,22 +8,17 @@ class Sql:
         """
         Connection to SQL via localhost root user
         """
-        self.mydb = mysql.connector.connect(
-            host = 'localhost',
-            user = 'root',
-            password = 'azqsazqs282',
-            auth_plugin = 'mysql_native_password'
-        )
+        self.mydb = mysql.connector.connect(option_files='db_configuration.conf')
 
     def dbinit(self):
         """
         Database creation + Tables creation via .sql file
         """
         mycursor = self.mydb.cursor()
-        mycursor.execute('CREATE DATABASE IF NOT EXISTS openfoodfacts4')
+        mycursor.execute('CREATE DATABASE IF NOT EXISTS openfoodfacts')
         sql_file = open('script-db/create_db.sql')
         sql_as_string = sql_file.read()
-        mycursor.execute('USE openfoodfacts4')
+        mycursor.execute('USE openfoodfacts')
         for result in mycursor.execute(sql_as_string, multi=True):
             pass
         self.mydb.commit()
