@@ -1,9 +1,11 @@
 from core.managers import ProductManager, CategoryManager, SubstituteManager
 from core.database import Sql
 
+database = Sql()
+
 class Product:
 
-    objects = ProductManager(Sql)
+    objects = ProductManager(database)
 
     def __init__(self, name, store, nutriscore, link, category):
         self.id = None
@@ -15,7 +17,7 @@ class Product:
 
 class Category:
 
-    objects = CategoryManager(Sql)
+    objects = CategoryManager(database)
 
     def __init__(self, category, products):
         self.id = None
@@ -25,7 +27,7 @@ class Category:
 
 class Substitute:
 
-    objects = SubstituteManager(Sql)
+    objects = SubstituteManager(database)
 
     def __init__(self, id_product_to_substitute, id_product_substitute):
         self.id = None
