@@ -2,24 +2,26 @@ import mysql.connector
 
 class Sql:
     def __init__(self):
-        self.connection()
+        self.connect()
 
-    def connection(self):
+    def connect(self):
         """
         Connection to SQL via localhost root user
         """
-        self.mydb = mysql.connector.connect(option_files='db_configuration.conf')
+        self.connection = mysql.connector.connect(option_files='db_configuration.conf')
+        mycursor = self.connection.cursor()
+        mycursor.execute('USE openfoodfacts2')
 
     def dbinit(self):
         """
         Database creation + Tables creation via .sql file
         """
-        mycursor = self.mydb.cursor()
-        mycursor.execute('CREATE DATABASE IF NOT EXISTS openfoodfacts')
+        mycursor = self.connection.cursor()
+        mycursor.execute('CREATE DATABASE IF NOT EXISTS openfoodfacts2')
         sql_file = open('script-db/create_db.sql')
         sql_as_string = sql_file.read()
-        mycursor.execute('USE openfoodfacts')
+        mycursor.execute('USE openfoodfacts2')
         for result in mycursor.execute(sql_as_string, multi=True):
             pass
-        self.mydb.commit()
+        self.connection.commit()
         mycursor.close()

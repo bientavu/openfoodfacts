@@ -1,10 +1,12 @@
 from core.database import Sql
-from core.models import Category
+from core.models import Category, Product
 
-# connection = Sql()
-# connection.dbinit()
+# create_database = Sql()
+# create_database.dbinit()
 
-Category.objects.insert_category()
+# Category.objects.insert_category()
+Product.objects.get_products_info()
+
 
 # import_data = CategoryManager()
 # import_data.category_table_mapping()
