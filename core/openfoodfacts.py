@@ -37,20 +37,15 @@ class ProductCleaner():
     def is_valid(self):
         pass
 
-    def store_clean(self, products):
-
-        res = [ele for ele in ({key: val for key, val in sub.items() if val} for sub in products) if ele] 
-
-        # for product in cleaned_products:
-        #     {k: v for k, v in product.items() if v is not None}
-
+    def store_clean(self, product):
+        res = {key: val for key, val in product.items() if val}
         return res
 
     def clean(self, products):
-
         cleaned_products = []
 
         for product in products:
             product = self.store_clean(product) # product est passé en argument de store_clean()
-            cleaned_products.append(product) # le produit n'est ajouté que s'il est valide et après avoir été nettoyé
-        pprint(cleaned_products)
+            if len(product) == 4 and len(product['product_name']) < 100 and len(product['stores']) < 45:
+                cleaned_products.append(product) # le produit n'est ajouté que s'il est valide et après avoir été nettoyé
+        return cleaned_products

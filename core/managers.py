@@ -5,8 +5,22 @@ class BaseManager:
         self.db = connection
 
 class ProductManager(BaseManager):
-    pass
-
+    def insert_product(self, products):
+        mycursor = self.db.connection.cursor()
+        sql = """
+        INSERT INTO Product (name_product, category_fk, store, nutriscore, link)
+        VALUES (%(name_product)s, (SELECT id FROM Category WHERE name=%(name_cat)s), %(store)s, %(nutriscore)s, %(link)s)
+        """
+        for product in products:
+            for product_name, name_cat, stores, nutriscore_grade, url in product.items():
+                mycursor.execute(sql, {
+                    'name_product' : product_name,
+                    'name_cat' : name_cat,
+                    'store' : stores,
+                    'nutriscore' : nutriscore_grade,
+                    'link' : url
+                    })
+        self.db.connection.commit()
 
 class CategoryManager(BaseManager):
     def insert_category(self):
