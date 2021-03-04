@@ -20,15 +20,7 @@ class ProductManager(BaseManager):
                     'nutriscore' : product['nutriscore_grade'],
                     'link' : product['url']
                     })
-        # for product in products:
-        #     for product_name, name_cat, stores, nutriscore_grade, url in product.items():
-        #         mycursor.execute(sql, {
-        #             'name_product' : product_name,
-        #             'name_cat' : name_cat,
-        #             'store' : stores,
-        #             'nutriscore' : nutriscore_grade,
-        #             'link' : url
-        #             })
+
         self.db.connection.commit()
 
 class CategoryManager(BaseManager):
