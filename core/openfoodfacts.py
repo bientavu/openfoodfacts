@@ -28,7 +28,11 @@ class ProductDownloader():
                     }
             
                 response = requests.get(url, params=params)
-                products.extend(response.json()["products"])
+                products_data = response.json()["products"]
+                for dictionary in products_data:
+                    dictionary["main_category"] = category
+                
+                products.extend(products_data)
 
         return products
 
@@ -46,6 +50,7 @@ class ProductCleaner():
 
         for product in products:
             product = self.store_clean(product) # product est passé en argument de store_clean()
-            if len(product) == 4 and len(product['product_name']) < 100 and len(product['stores']) < 45:
+            if len(product) == 5 and len(product['product_name']) < 100 and len(product['stores']) < 45:
                 cleaned_products.append(product) # le produit n'est ajouté que s'il est valide et après avoir été nettoyé
+                
         return cleaned_products

@@ -9,17 +9,26 @@ class ProductManager(BaseManager):
         mycursor = self.db.connection.cursor()
         sql = """
         INSERT INTO Product (name_product, category_fk, store, nutriscore, link)
-        VALUES (%(name_product)s, (SELECT id FROM Category WHERE name=%(name_cat)s), %(store)s, %(nutriscore)s, %(link)s)
+        VALUES (%(name_product)s, (SELECT id FROM Category WHERE name_cat=%(name_cat)s), %(store)s, %(nutriscore)s, %(link)s)
         """
         for product in products:
-            for product_name, name_cat, stores, nutriscore_grade, url in product.items():
+            for key, value in product.items():
                 mycursor.execute(sql, {
-                    'name_product' : product_name,
-                    'name_cat' : name_cat,
-                    'store' : stores,
-                    'nutriscore' : nutriscore_grade,
-                    'link' : url
+                    'name_product' : product['product_name'],
+                    'name_cat' : product['main_category'],
+                    'store' : product['stores'],
+                    'nutriscore' : product['nutriscore_grade'],
+                    'link' : product['url']
                     })
+        # for product in products:
+        #     for product_name, name_cat, stores, nutriscore_grade, url in product.items():
+        #         mycursor.execute(sql, {
+        #             'name_product' : product_name,
+        #             'name_cat' : name_cat,
+        #             'store' : stores,
+        #             'nutriscore' : nutriscore_grade,
+        #             'link' : url
+        #             })
         self.db.connection.commit()
 
 class CategoryManager(BaseManager):
