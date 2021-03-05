@@ -12,15 +12,13 @@ class ProductManager(BaseManager):
         VALUES (%(name_product)s, (SELECT id FROM Category WHERE name_cat=%(name_cat)s), %(store)s, %(nutriscore)s, %(link)s)
         """
         for product in products:
-            for key, value in product.items():
-                mycursor.execute(sql, {
-                    'name_product' : product['product_name'],
-                    'name_cat' : product['main_category'],
-                    'store' : product['stores'],
-                    'nutriscore' : product['nutriscore_grade'],
-                    'link' : product['url']
-                    })
-
+            mycursor.execute(sql, {
+                'name_product' : product['product_name'],
+                'name_cat' : product['main_category'],
+                'store' : product['stores'],
+                'nutriscore' : product['nutriscore_grade'],
+                'link' : product['url']
+                })
         self.db.connection.commit()
 
 class CategoryManager(BaseManager):

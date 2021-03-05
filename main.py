@@ -10,12 +10,12 @@ from core.program import WelcomeMenu
 # create_database = Sql()
 # create_database.dbinit()
 
+# Category.objects.insert_category()
+
 products = ProductDownloader()
 products_dict = products.get_products_info()
 
 cleaner = ProductCleaner()
 cleaned_products = cleaner.clean(products_dict)
-
-# pprint(cleaned_products)
 
 Product.objects.insert_product(cleaned_products)

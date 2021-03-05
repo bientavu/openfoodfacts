@@ -41,7 +41,7 @@ class ProductCleaner():
     def is_valid(self):
         pass
 
-    def store_clean(self, product):
+    def remove_empty_values(self, product):
         res = {key: val for key, val in product.items() if val}
         return res
 
@@ -49,7 +49,7 @@ class ProductCleaner():
         cleaned_products = []
 
         for product in products:
-            product = self.store_clean(product) # product est passé en argument de store_clean()
+            product = self.remove_empty_values(product) # product est passé en argument de store_clean()
             if len(product) == 5 and len(product['product_name']) < 100 and len(product['stores']) < 45:
                 cleaned_products.append(product) # le produit n'est ajouté que s'il est valide et après avoir été nettoyé
                 
