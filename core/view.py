@@ -1,6 +1,6 @@
 
 
-class WelcomeMenu():
+class View:
 
     def hello(self):
 
@@ -9,20 +9,34 @@ class WelcomeMenu():
         database in order to suggest you the best food ratings.
         """)
         name = input("What is your name ? ")
+        if name == "":
+            return None
         
+        print("")
         print(f"Ok nice to meet you {name} ! Let's start then")
+        print("")
         input("You can press Enter to continue...")
 
         return welcoming_message
 
-class ChooseCategory():
-    pass
+    def welcome_menu(self):
 
-class ChooseFood():
-    pass
+        print("")
+        menu_choice = input("""Do you want to:
+        A) Find an healthier product
+        B) Acces your food history
+        [A/B]? : """)
 
-class FoodSuggestion():
-    pass
+        return menu_choice
 
-class SubstituteListing():
-    pass
+    def choosecategory(self):
+        pass
+    
+    def choosefood(self):
+        pass
+
+    def foodsuggestion(self):
+        pass
+
+    def substitutelisting(self):
+        pass
