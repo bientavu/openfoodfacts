@@ -1,3 +1,4 @@
+from core.constants import CATEGORIES
 from core.managers import ProductManager, CategoryManager, SubstituteManager
 from core.database import Sql
 
@@ -14,6 +15,7 @@ class Product:
         self.nutriscore = nutriscore
         self.link = link
         self.category = category
+
 
 class Category:
 
