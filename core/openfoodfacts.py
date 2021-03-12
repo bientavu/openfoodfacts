@@ -2,7 +2,7 @@ import requests
 from pprint import pprint
 from core.constants import CATEGORIES
 
-class ProductDownloader():
+class ProductDownloader:
 
     def get_products_info(self):
         url = "https://fr.openfoodfacts.org/cgi/search.pl"
@@ -37,7 +37,7 @@ class ProductDownloader():
         return products
 
 
-class ProductCleaner():
+class ProductCleaner:
     def is_valid(self):
         pass
 
