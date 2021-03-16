@@ -1,6 +1,7 @@
 
 class Validation:
     def validate_welcome_input(self, value):
+        self.value = value
         if value == '1' or '2':
             return True
         else:
