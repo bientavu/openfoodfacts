@@ -38,8 +38,6 @@ class ProductDownloader:
 
 
 class ProductCleaner:
-    def is_valid(self):
-        pass
 
     def remove_empty_values(self, product):
         res = {key: val for key, val in product.items() if val}

@@ -2,8 +2,8 @@ from pprint import pprint
 from core.database import Sql
 from core.models import Category, Product
 from core.openfoodfacts import ProductDownloader, ProductCleaner
-from core.view import View
-from core.controller import Controller
+from core.views import View
+from core.controllers import Controller
 
 # hello = WelcomeMenu()
 # say_hello = hello.hello()

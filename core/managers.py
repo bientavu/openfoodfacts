@@ -30,5 +30,11 @@ class CategoryManager(BaseManager):
             mycursor.execute(sql, {'cat_name' : category})
         self.db.connection.commit()
 
+    def fetch_all_category(self):
+        mycursor = self.db.connection.cursor()
+        mycursor.execute("SELECT * FROM Category")
+        myresult = mycursor.fetchall()
+        return myresult
+
 class SubstituteManager(BaseManager):
     pass

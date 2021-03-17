@@ -1,8 +1,7 @@
 from core.models import Product, Category, Substitute
-from core.input_validators import Validation
+from . import input_validators
 
 # product = Product()
-validation = Validation()
 
 class Controller:
     def __init__(self, view, product):
@@ -11,14 +10,35 @@ class Controller:
 
     def run(self):
         self.view.hello()
+        self.methode_to_execute = self.welcome_menu
+        while self.methode_to_execute is not None:
+            next_method = self.methode_to_execute()
+            self.methode_to_execute = next_method
+        
+    def welcome_menu(self):
         while True:
             response = self.view.welcome_menu()
-            if validation.validate_welcome_input(response) == True:
+            if input_validators.is_valid_welcome_response(response):
                 break
-        self.view.welcome_menu()
-                    # sinon le menu réapparait
+        if response == '1':
+            return self.choosecategory_menu
+        elif response == '2':
+            return self.substitutelisting
+        elif response == '3':
+            return self.quit
 
+    def choosecategory_menu(self):
+        categories = Category.objects.fetch_all_category()
+        while True:
+            response = self.view.choosecategory_menu(categories)
+            if input_validators.is_valid_category_response(response, categories):
+                break
 
+    def substitutelisting(self):
+        pass
+
+    def quit(self):
+        self.view.quit()
 
         # si la valeur est A, alors je montre les catégories (while)
         # Si c'était A : en fonction de la catégorie choisie, j'affiche les aliments disponibles de cette dernière

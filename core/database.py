@@ -7,7 +7,7 @@ class Sql:
 
     def connect(self):
         """
-        Connection to SQL via localhost root user
+        Connection to SQL via db_config file
         """
         self.connection = mysql.connector.connect(
             host = db_config.HOST,
@@ -24,7 +24,7 @@ class Sql:
 
     def dbinit(self):
         """
-        Database creation + Tables creation via .sql file
+        Tables creation via .sql file
         """
         mycursor = self.connection.cursor()
         # mycursor.execute(f'CREATE DATABASE {db_config.DATABASE} CHARACTER SET {db_config.CHARSET} COLLATE {db_config.COLLATION}')
