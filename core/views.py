@@ -1,4 +1,4 @@
-from core.models import Category, Product
+from .models import Category, Product
 
 class View:
 

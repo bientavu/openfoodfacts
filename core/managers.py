@@ -1,4 +1,5 @@
-from core.constants import CATEGORIES
+from .constants import CATEGORIES
+from pprint import pprint
 
 class BaseManager:
     def __init__(self, connection):
@@ -32,9 +33,14 @@ class CategoryManager(BaseManager):
 
     def fetch_all_category(self):
         mycursor = self.db.connection.cursor()
-        mycursor.execute("SELECT * FROM Category")
+        mycursor.execute("SELECT name_cat FROM Category")
         myresult = mycursor.fetchall()
         return myresult
+
+        # mycursor = self.db.connection.cursor()
+        # mycursor.execute("SELECT name_cat FROM Category")
+        # myresult = dict(zip(mycursor.column_names, mycursor.fetchall()))
+        # pprint(myresult)
 
 class SubstituteManager(BaseManager):
     pass

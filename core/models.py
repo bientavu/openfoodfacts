@@ -1,5 +1,5 @@
-from core.managers import ProductManager, CategoryManager, SubstituteManager
-from core.database import Sql
+from .managers import ProductManager, CategoryManager, SubstituteManager
+from .database import Sql
 
 database = Sql()
 
@@ -20,9 +20,9 @@ class Category:
 
     objects = CategoryManager(database)
 
-    def __init__(self, category):
+    def __init__(self, name_cat):
         self.id = None
-        self.category = category
+        self.name_cat = name_cat
 
 
 class Substitute:

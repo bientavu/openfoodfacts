@@ -1,6 +1,6 @@
 import requests
 from pprint import pprint
-from core.constants import CATEGORIES
+from .constants import CATEGORIES
 
 class ProductDownloader:
 

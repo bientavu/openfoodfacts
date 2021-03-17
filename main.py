@@ -26,3 +26,5 @@ program_controller.run()
 # cleaned_products = cleaner.clean(products_dict)
 
 # Product.objects.insert_product(cleaned_products)
+
+# Category.objects.fetch_all_category()

@@ -1,4 +1,4 @@
-from core.models import Product, Category, Substitute
+from .models import Product, Category, Substitute
 from . import input_validators
 
 # product = Product()
