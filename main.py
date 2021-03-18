@@ -17,7 +17,7 @@ program_controller.run()
 # create_database = Sql()
 # create_database.dbinit()
 
-# Category.objects.insert_category()
+# Category.objects.insert_categories()
 
 # products = ProductDownloader()
 # products_dict = products.get_products_info()
@@ -27,4 +27,4 @@ program_controller.run()
 
 # Product.objects.insert_product(cleaned_products)
 
-# Category.objects.fetch_all_category()
+# Product.objects.fetch_all_products()
