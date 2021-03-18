@@ -8,6 +8,7 @@ class Controller:
         self.view = view
         self.product = product
         self.category_choice = None
+        self.product_choice = None
 
     def run(self):
         self.view.hello()
@@ -29,7 +30,7 @@ class Controller:
             return self.quit
 
     def choosecategory_menu(self):
-        categories = Category.objects.fetch_all_category()
+        categories = Category.objects.fetch_all_categories()
         while True:
             response = self.view.choosecategory_menu(categories)
             if input_validators.is_valid_category_response(response, categories):
@@ -44,7 +45,19 @@ class Controller:
             return self.quit
 
     def choosefood_menu(self):
-        pass
+        products = Product.objects.fetch_all_products()
+        while True:
+            response = self.view.choosefood_menu(products)
+            if input_validators.is_valid_product_response(response, products):
+                break
+
+        if response in [str(index) for index, category in enumerate(products, start = 1)]:
+            self.product_choice = products [int(response) - 1]
+            return self.choosefood_menu
+        elif response == str(len(products) + 1):
+            return self.welcome_menu
+        elif response == str(len(products) + 2):
+            return self.quit
 
     def substitutelisting(self):
         pass
