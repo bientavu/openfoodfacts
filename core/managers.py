@@ -23,8 +23,31 @@ class ProductManager(BaseManager):
                 })
         self.db.connection.commit()
 
+    def fetch_all_products(self):
+        mycursor = self.db.connection.cursor()
+        mycursor.execute("SELECT name_product,category_fk, store, nutriscore, link FROM Product")
+        myresult = mycursor.fetchall()
+
+        results = []
+
+        for line in myresult:
+            name_product = line[0]
+            category_fk = line[1]
+            store = line[2]
+            nutriscore = line[3]
+            link = line[4]
+            results.append(models.Product(
+                name=name_product,
+                category=category_fk,
+                store=store,
+                nutriscore=nutriscore,
+                link=link
+                ))
+
+        return results
+    
 class CategoryManager(BaseManager):
-    def insert_category(self):
+    def insert_categories(self):
         mycursor = self.db.connection.cursor()
         # mycursor.execute('USE openfoodfacts')
         sql = "INSERT INTO Category (name_cat) VALUES (%(cat_name)s)"
@@ -32,7 +55,7 @@ class CategoryManager(BaseManager):
             mycursor.execute(sql, {'cat_name' : category})
         self.db.connection.commit()
 
-    def fetch_all_category(self):
+    def fetch_all_categories(self):
         mycursor = self.db.connection.cursor()
         mycursor.execute("SELECT name_cat FROM Category")
         myresult = mycursor.fetchall()
@@ -44,14 +67,6 @@ class CategoryManager(BaseManager):
             results.append(models.Category(name_cat=cat_name))
 
         return results
-
-        # for category in myresult:
-        #     return [Category(name_cat=category)]
-            
-        # mycursor = self.db.connection.cursor()
-        # mycursor.execute("SELECT name_cat FROM Category")
-        # myresult = dict(zip(mycursor.column_names, mycursor.fetchall()))
-        # pprint(myresult)
 
 class SubstituteManager(BaseManager):
     pass
