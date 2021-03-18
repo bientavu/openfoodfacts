@@ -1,3 +1,4 @@
+from . import models
 from .constants import CATEGORIES
 from pprint import pprint
 
@@ -35,8 +36,18 @@ class CategoryManager(BaseManager):
         mycursor = self.db.connection.cursor()
         mycursor.execute("SELECT name_cat FROM Category")
         myresult = mycursor.fetchall()
-        return myresult
 
+        results = []
+
+        for line in myresult:
+            cat_name = line[0]
+            results.append(models.Category(name_cat=cat_name))
+
+        return results
+
+        # for category in myresult:
+        #     return [Category(name_cat=category)]
+            
         # mycursor = self.db.connection.cursor()
         # mycursor.execute("SELECT name_cat FROM Category")
         # myresult = dict(zip(mycursor.column_names, mycursor.fetchall()))
