@@ -5,9 +5,6 @@ class View:
     def hello(self):
 
         welcoming_message = print(
-            # "Hello and welcome ! I'm a program that will help you replace bad\n"
-            # "quality food by giving you healthier products. I'm looking into the\n"
-            # "openfoodfacts database in order to suggest you the best food ratings.\n"
             "Bonjour et bienvenue ! Je suis un programme qui vous aidera à remplacer\n"
             "des produits alimentaires de mauvaises qualités en vous en proposant des\n"
             "équivalents de meilleures qualitée. Je vais chercher les infos sur openfoodfacts.\n"
@@ -16,8 +13,7 @@ class View:
         if name == "":
             return None
         
-        print("")
-        print(f"Ravie de vous rencontrer {name} ! C'est parti !")
+        print(f"\nRavie de vous rencontrer {name} ! C'est parti !")
         input("Vous pouvez appuyer sur 'Entrée' pour commencer...")
 
         return welcoming_message
@@ -39,7 +35,7 @@ class View:
 
         menu_options = {}
         for position, category in enumerate(categories, start=1):
-            menu_options[position] = f"{category.name_cat.capitalize().replace('-', ' ')}"
+            menu_options[position] = f"{category.name_cat.capitalize().replace('-', ' ')}\n"
         menu_options[position + 1] = "Revenir à l'acceuil"
         menu_options[position + 2] = "Quitter le programme"
 
@@ -51,13 +47,33 @@ class View:
         menu = "".join(menu_options_as_string)
 
         return input(
-            "\nVeuillez sélectionner une catégorie :\n"
+            "\nVeuillez sélectionner une catégorie :\n\n"
             f"{menu}"
             "\nQuel est votre choix ? (Tapez le numéro correspondant) : "
             )
 
-    def choosefood_menu(self):
-        pass
+    def choosefood_menu(self, products):
+
+        menu_options = {}
+        for position, product in enumerate(products, start=1):
+            if product.nutriscore == 'e' or product.nutriscore == 'd':
+                product_name_cleaned = product.name.replace('\n', ' ')
+                menu_options[position] = f"{product_name_cleaned} | Nutriscore : {product.nutriscore} | Magasin(s) : {product.store}\n"
+        menu_options[position + 1] = "Revenir à l'acceuil"
+        menu_options[position + 2] = "Quitter le programme"
+
+        menu_options_as_string = []
+        for key, value in menu_options.items():
+            value_string = f"{key}. {value}\n"
+            menu_options_as_string.append(value_string)
+        
+        menu = "".join(menu_options_as_string)
+
+        return input(
+            "\nVeuillez sélectionner un produit à substituer :\n"
+            f"{menu}"
+            "\nQuel est votre choix ? (Tapez le numéro correspondant) : "
+            )
 
     def foodsuggestion(self):
         pass
@@ -66,5 +82,5 @@ class View:
         pass
 
     def quit(self):
-        print("\nMerci d'avoir utiliser le programme !\n"
+        print("\nMerci d'avoir utilisé ce programme !\n"
         "En espérant que cela vous ai été utile. A bientôt !\n")
