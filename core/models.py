@@ -10,7 +10,7 @@ class Product:
     def __init__(self, name, store, nutriscore, link, category):
         self.id = None
         self.name = name
-        self.score = store
+        self.store = store
         self.nutriscore = nutriscore
         self.link = link
         self.category = category
