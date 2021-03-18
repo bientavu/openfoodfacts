@@ -39,7 +39,7 @@ class View:
 
         menu_options = {}
         for position, category in enumerate(categories, start=1):
-            menu_options[position] = category.name_cat
+            menu_options[position] = f"{category.name_cat.capitalize().replace('-', ' ')}"
         menu_options[position + 1] = "Revenir à l'acceuil"
         menu_options[position + 2] = "Quitter le programme"
 
@@ -53,6 +53,7 @@ class View:
         return input(
             "\nVeuillez sélectionner une catégorie :\n"
             f"{menu}"
+            "\nQuel est votre choix ? (Tapez le numéro correspondant) : "
             )
 
     def choosefood_menu(self):
@@ -65,4 +66,5 @@ class View:
         pass
 
     def quit(self):
-        print("Salut !")
+        print("\nMerci d'avoir utiliser le programme !\n"
+        "En espérant que cela vous ai été utile. A bientôt !\n")
