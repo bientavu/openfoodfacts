@@ -52,7 +52,7 @@ class Controller:
                 break
 
         if response in [str(index) for index, category in enumerate(products, start = 1)]:
-            self.product_choice = products [int(response) - 1]
+            self.product_choice = products[int(response) - 1]
             return self.choosefood_menu
         elif response == str(len(products) + 1):
             return self.welcome_menu
