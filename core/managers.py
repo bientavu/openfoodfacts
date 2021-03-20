@@ -23,9 +23,14 @@ class ProductManager(BaseManager):
                 })
         self.db.connection.commit()
 
-    def fetch_all_products(self):
+    def fetch_all_products(self, category):
         mycursor = self.db.connection.cursor()
-        mycursor.execute("SELECT name_product,category_fk, store, nutriscore, link FROM Product")
+        sql = ("SELECT name_product, category_fk, store, nutriscore, link \
+            FROM Product \
+            INNER JOIN Category \
+            ON Product.category_fk = Category.id \
+            WHERE Product.category_fk = %(category)s")
+        mycursor.execute(sql, {'category' : category})
         myresult = mycursor.fetchall()
 
         results = []

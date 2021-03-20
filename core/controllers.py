@@ -37,7 +37,7 @@ class Controller:
                 break
 
         if response in [str(index) for index, category in enumerate(categories, start = 1)]:
-            self.category_choice = categories [int(response) - 1]
+            self.category_choice = categories[int(response) - 1]
             return self.choosefood_menu
         elif response == str(len(categories) + 1):
             return self.welcome_menu
@@ -45,7 +45,7 @@ class Controller:
             return self.quit
 
     def choosefood_menu(self):
-        products = Product.objects.fetch_all_products()
+        products = Product.objects.fetch_all_products(self.category_choice)
         while True:
             response = self.view.choosefood_menu(products)
             if input_validators.is_valid_product_response(response, products):
