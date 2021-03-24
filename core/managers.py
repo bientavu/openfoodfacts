@@ -3,11 +3,23 @@ from .constants import CATEGORIES
 from pprint import pprint
 
 class BaseManager:
+    """
+    Connects all the managers to SQL by using database.py
+    """
     def __init__(self, connection):
+        """
+        Database connection
+        """
         self.db = connection
 
 class ProductManager(BaseManager):
+    """
+    Manage the products in the SQL database
+    """
     def insert_product(self, products):
+        """
+        Inserts all the products into the SQL Product table
+        """
         mycursor = self.db.connection.cursor()
         sql = """
         INSERT INTO Product (name_product, category_fk, store, nutriscore, link)
@@ -24,6 +36,10 @@ class ProductManager(BaseManager):
         self.db.connection.commit()
 
     def fetch_all_products(self, category):
+        """
+        Fetch all the products from the SQL Product table
+        so that the controllers can call them
+        """
         mycursor = self.db.connection.cursor()
         mycursor.execute("""
             SELECT name_product, category_fk, store, nutriscore, link
@@ -54,7 +70,10 @@ class ProductManager(BaseManager):
         return results
 
     def fetch_selected_product(self, product):
-
+        """
+        Fetch the product selected by the use from the
+        SQL Product table so that the controllers can call it
+        """
         mycursor = self.db.connection.cursor()
         mycursor.execute("""
             SELECT name_product, category_fk, store, nutriscore, link
@@ -77,15 +96,18 @@ class ProductManager(BaseManager):
         return results
 
     def fetch_better_product(self, category):
-
+        """
+        Fetch randomly one product from the SQL Product table
+        that is better than the one selected by the user
+        """
         mycursor = self.db.connection.cursor()
         mycursor.execute("""
             SELECT name_product, category_fk, store, nutriscore, link
             FROM Product
-            INNER JOIN Category 
+            INNER JOIN Category
             ON Product.category_fk = Category.id
             WHERE Category.name_cat = %(category)s
-            AND Product.nutriscore = 'a' OR Product.nutriscore = 'b'
+            AND (Product.nutriscore = 'a' OR Product.nutriscore = 'b')
             ORDER BY RAND()
             LIMIT 1""",
             {"category": category.name_cat})
@@ -104,7 +126,14 @@ class ProductManager(BaseManager):
         return results
     
 class CategoryManager(BaseManager):
+    """
+    Manage the categories in the SQL database
+    """
     def insert_categories(self):
+        """
+        Inserts all the categories from the constant.py
+        module into the SQL Category table
+        """
         mycursor = self.db.connection.cursor()
         # mycursor.execute('USE openfoodfacts')
         sql = "INSERT INTO Category (name_cat) VALUES (%(cat_name)s)"
@@ -113,6 +142,10 @@ class CategoryManager(BaseManager):
         self.db.connection.commit()
 
     def fetch_all_categories(self):
+        """
+        Fetch all the categories from the SQL Category table
+        so that the controllers can call them
+        """
         mycursor = self.db.connection.cursor()
         mycursor.execute("SELECT name_cat FROM Category")
         myresult = mycursor.fetchall()
@@ -126,4 +159,7 @@ class CategoryManager(BaseManager):
         return results
 
 class SubstituteManager(BaseManager):
+    """
+    Manage the substitutes in the SQL database
+    """
     pass

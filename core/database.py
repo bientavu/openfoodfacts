@@ -2,7 +2,14 @@ import mysql.connector
 import db_config
 
 class Sql:
+    """
+    Manage the connection to SQL and creates
+    all the tables in the database
+    """
     def __init__(self):
+        """
+        Connection to SQL
+        """
         self.connect()
 
     def connect(self):
@@ -24,7 +31,7 @@ class Sql:
 
     def dbinit(self):
         """
-        Tables creation via .sql file
+        Tables creation via the .sql file
         """
         mycursor = self.connection.cursor()
         # mycursor.execute(f'CREATE DATABASE {db_config.DATABASE} CHARACTER SET {db_config.CHARSET} COLLATE {db_config.COLLATION}')

@@ -2,13 +2,24 @@ from pprint import pprint
 from .models import Category, Product
 
 class View:
-
+    """
+    Regroups all the views that the user is facing
+    """
     def hello(self):
-
+        """
+        Hello message displayed when the program launch
+        """
         welcoming_message = print(
-            "Bonjour et bienvenue ! Je suis un programme qui vous aidera à remplacer\n"
-            "des produits alimentaires de mauvaises qualités en vous en proposant des\n"
-            "équivalents de meilleures qualitée. Je vais chercher les infos sur openfoodfacts.\n"
+            "\nBonjour et bienvenue ! Je suis un programme qui vous aidera à remplacer des\n"
+            "produits alimentaires de mauvaise qualité en vous en proposant des équivalents de \n"
+            "meilleure qualité. Je me base sur le Nutri-Score d'un produit allant de A à E :\n\n"
+            "- Nutri-Score A : Très bonne qualité nutritionnelle\n"
+            "- Nutri-Score B : Bonne qualité nutritionnelle\n"
+            "- Nutri-Score C : Qualité nutritionnelle moyenne\n"
+            "- Nutri-Score D : Mauvaise qualité nutritionnelle\n"
+            "- Nutri-Score E : Très mauvaise qualité nutritionnelle\n\n"
+            "Vous pouvez trouver plus d'informations sur le Nutri-Score sur : https://www.mangerbouger.fr/\n"
+            "Toutes les informations des produits sont récupérées sur : https://fr.openfoodfacts.org/\n"
             )
         name = input("Quel est votre nom ? ")
         if name == "":
@@ -20,12 +31,15 @@ class View:
         return welcoming_message
 
     def welcome_menu(self):
-
+        """
+        First menu message where the user choose between
+        substitute a product, access his history or quit the program
+        """
         print("")
         menu_choice = input(
             "Souhaitez-vous:\n"
             "1. Choisir une catégorie pour trouver un produit à substituer\n"
-            "2. Accéder à votre historique de produits subtitués\n"
+            "2. Accéder aux favoris des produits subtitués\n"
             "3. Quitter le programme\n"
             "\nQuel est votre choix ? (Tapez le numéro correspondant) : "
             )
@@ -33,7 +47,11 @@ class View:
         return menu_choice
 
     def choosecategory_menu(self, categories):
-
+        """
+        Second menu message where the user has to choose the category
+        of the product he wants to substitute. Possibilities to go back
+        to the welcome menu or quit the program
+        """
         menu_options = {}
         for position, category in enumerate(categories, start=1):
             menu_options[position] = f"{category.name_cat.capitalize().replace('-', ' ')}\n"
@@ -54,7 +72,11 @@ class View:
             )
 
     def choosefood_menu(self, products):
-
+        """
+        Third menu message where the user has to choose the product 
+        he wants to substitute. Possibilities to go back
+        to the welcome menu or quit the program
+        """
         menu_options = {}
         for position, product in enumerate(products, start=1):
             if product.nutriscore == 'e' or product.nutriscore == 'd':
@@ -70,38 +92,45 @@ class View:
         
         menu = "".join(menu_options_as_string)
 
-        return input(
-            "\nVeuillez sélectionner un produit à substituer :\n"
+        response = input(
+            "\nVeuillez sélectionner un produit à substituer :\n\n"
             f"{menu}"
             "\nQuel est votre choix ? (Tapez le numéro correspondant) : "
             )
+        print("")
+
+        return response
 
     def foodsuggestion(self, selected_product, better_product):
-
+        """
+        Last menu message where the selected product and a better one
+        is displayed. User can save the products, access his history
+        or quit the program
+        """
         for product in selected_product:
             product_name_cleaned = product.name.replace('\n', ' ')
-            print(f"""
-            ###### Produit à substituer ######
-            Nom du produit : {product_name_cleaned}
-            Nutriscore : {product.nutriscore}
-            Magasin(s) : {product.store}
-            Lien openfoodfacts : {product.link}
-            """)
+            print(
+            "-----------Produit à substituer----------\n"
+            f"Nom du produit : {product_name_cleaned}\n"
+            f"Nutriscore : {product.nutriscore}\n"
+            f"Magasin(s) : {product.store}\n"
+            f"Lien openfoodfacts : {product.link}\n"
+            )
 
         for product in better_product:
             product_name_cleaned = product.name.replace('\n', ' ')
-            print(f"""
-            ###### Substitut proposé ######
-            Nom du produit : {product_name_cleaned}
-            Nutriscore : {product.nutriscore}
-            Magasin(s) : {product.store}
-            Lien openfoodfacts : {product.link}
-            """)
+            print(
+            "------------Produit substitut------------\n"
+            f"Nom du produit : {product_name_cleaned}\n"
+            f"Nutriscore : {product.nutriscore}\n"
+            f"Magasin(s) : {product.store}\n"
+            f"Lien openfoodfacts : {product.link}\n"
+            )
         
         return input(
             "Veuillez sélectionner une action :\n"
-            "1. Enregistrer ce substitut dans l'historique\n"
-            "2. Accéder à votre historique de produits subtitués\n"
+            "1. Enregistrer ce substitut dans les favoris\n"
+            "2. Accéder aux favoris des produits subtitués\n"
             "3. Revenir à l'acceuil\n"
             "4. Quitter le programme\n"
             "\nQuel est votre choix ? (Tapez le numéro correspondant) : "
@@ -111,5 +140,8 @@ class View:
         pass
 
     def quit(self):
+        """
+        Display a thank you message when the user qui the program
+        """
         print("\nMerci d'avoir utilisé ce programme !\n"
         "En espérant que cela vous ai été utile. A bientôt !\n")

@@ -1,5 +1,4 @@
 
-
 def is_valid_welcome_response(response):
     """
     Cheking if the welcome input is True or False to continue
@@ -33,9 +32,9 @@ def is_valid_product_response(response, products):
 def is_valid_suggested_product_response(response, product):
     """
     Cheking if the input is True or False to continue
-    Otherwise the the message keeps repeating
+    Otherwise the message keeps repeating
     """
     if response in [str(number) for number in range(1, len(product) + 3)]:
         return True
     else:
-        return False   
+        return False

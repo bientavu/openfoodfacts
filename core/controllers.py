@@ -4,13 +4,25 @@ from . import input_validators
 # product = Product()
 
 class Controller:
+    """
+    Controls the program by calling methods from the 
+    managers, models and views modules
+    """
     def __init__(self, view, product):
+        """
+        view, product, category_choice
+        and product_choice initialization
+        """
         self.view = view
         self.product = product
         self.category_choice = None
         self.product_choice = None
 
     def run(self):
+        """
+        Loop that runs all the next 
+        'menu' methods from the controllers
+        """
         self.view.hello()
         self.methode_to_execute = self.welcome_menu
         while self.methode_to_execute is not None:
@@ -18,6 +30,11 @@ class Controller:
             self.methode_to_execute = next_method
         
     def welcome_menu(self):
+        """
+        The first menu for the user.
+        Calling a view from view.py and
+        the input gets a validation
+        """
         while True:
             response = self.view.welcome_menu()
             if input_validators.is_valid_welcome_response(response):
@@ -30,6 +47,11 @@ class Controller:
             return self.quit
 
     def choosecategory_menu(self):
+        """
+        The second menu for the user, where he choose a category
+        Calling all the categories from managers.py
+        Calling a view from view.py and the input gets a validation
+        """
         categories = Category.objects.fetch_all_categories()
         while True:
             response = self.view.choosecategory_menu(categories)
@@ -45,6 +67,11 @@ class Controller:
             return self.quit
 
     def choosefood_menu(self):
+        """
+        The third menu for the user, where he choose a product
+        Calling all the products from managers.py
+        Calling a view from view.py and the input gets a validation
+        """
         products = Product.objects.fetch_all_products(self.category_choice)
         while True:
             response = self.view.choosefood_menu(products)
@@ -60,6 +87,12 @@ class Controller:
             return self.quit
 
     def suggested_food(self):
+        """
+        The last menu for the user, where he choose to save his product
+        or to enter into his products history.
+        Calling the product he chose and a random substitute from managers.py
+        Calling a view from view.py and the input gets a validation
+        """
         selected_product = Product.objects.fetch_selected_product(self.product_choice)
         better_product = Product.objects.fetch_better_product(self.category_choice)
         while True:
@@ -79,16 +112,11 @@ class Controller:
         pass
 
     def quit(self):
+        """
+        Close the program
+        """
         self.view.quit()
 
-        # si la valeur est A, alors je montre les catégories (while)
-        # Si c'était A : en fonction de la catégorie choisie, j'affiche les aliments disponibles de cette dernière
-        # Un aliment substitué est alors proposé : affichage des toutes ces informations + proposition de l'enregistrer dans l'historique
-        # L'utilisateur est renvoyé à menu d'acceuil
-    
-        # si la valeur est B, alors je montre l'historique (while)
-        # Si c'était B : j'affiche l'historique des aliments substitués --> tables Substitutes
-        # L'utilisateur peut alors appuyer sur Entrée pour retourner au menu
 
 
 
