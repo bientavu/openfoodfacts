@@ -1,3 +1,4 @@
+from pprint import pprint
 from .models import Category, Product
 
 class View:
@@ -75,8 +76,36 @@ class View:
             "\nQuel est votre choix ? (Tapez le numéro correspondant) : "
             )
 
-    def foodsuggestion(self):
-        pass
+    def foodsuggestion(self, selected_product, better_product):
+
+        for product in selected_product:
+            product_name_cleaned = product.name.replace('\n', ' ')
+            print(f"""
+            ###### Produit à substituer ######
+            Nom du produit : {product_name_cleaned}
+            Nutriscore : {product.nutriscore}
+            Magasin(s) : {product.store}
+            Lien openfoodfacts : {product.link}
+            """)
+
+        for product in better_product:
+            product_name_cleaned = product.name.replace('\n', ' ')
+            print(f"""
+            ###### Substitut proposé ######
+            Nom du produit : {product_name_cleaned}
+            Nutriscore : {product.nutriscore}
+            Magasin(s) : {product.store}
+            Lien openfoodfacts : {product.link}
+            """)
+        
+        return input(
+            "Veuillez sélectionner une action :\n"
+            "1. Enregistrer ce substitut dans l'historique\n"
+            "2. Accéder à votre historique de produits subtitués\n"
+            "3. Revenir à l'acceuil\n"
+            "4. Quitter le programme\n"
+            "\nQuel est votre choix ? (Tapez le numéro correspondant) : "
+             )
 
     def substitutelisting(self):
         pass
