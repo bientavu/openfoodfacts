@@ -24,7 +24,6 @@ class ProductManager(BaseManager):
         self.db.connection.commit()
 
     def fetch_all_products(self, category):
-        # pprint(category)
         mycursor = self.db.connection.cursor()
         mycursor.execute("""
             SELECT name_product, category_fk, store, nutriscore, link
@@ -51,6 +50,56 @@ class ProductManager(BaseManager):
                 nutriscore=nutriscore,
                 link=link
                 ))
+
+        return results
+
+    def fetch_selected_product(self, product):
+
+        mycursor = self.db.connection.cursor()
+        mycursor.execute("""
+            SELECT name_product, category_fk, store, nutriscore, link
+            FROM Product
+            WHERE Product.link = %(product)s""",
+            {"product": product.link}
+            )
+        myresult = mycursor.fetchone()
+
+        results = []
+
+        results.append(models.Product(
+            name=myresult[0],
+            category=myresult[1],
+            store=myresult[2],
+            nutriscore=myresult[3],
+            link=myresult[4]
+            ))
+
+        return results
+
+    def fetch_better_product(self, category):
+
+        mycursor = self.db.connection.cursor()
+        mycursor.execute("""
+            SELECT name_product, category_fk, store, nutriscore, link
+            FROM Product
+            INNER JOIN Category 
+            ON Product.category_fk = Category.id
+            WHERE Category.name_cat = %(category)s
+            AND Product.nutriscore = 'a' OR Product.nutriscore = 'b'
+            ORDER BY RAND()
+            LIMIT 1""",
+            {"category": category.name_cat})
+        myresult = mycursor.fetchone()
+
+        results = []
+
+        results.append(models.Product(
+            name=myresult[0],
+            category=myresult[1],
+            store=myresult[2],
+            nutriscore=myresult[3],
+            link=myresult[4]
+            ))
 
         return results
     
