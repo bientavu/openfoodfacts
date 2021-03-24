@@ -27,4 +27,4 @@ program_controller.run()
 
 # Product.objects.insert_product(cleaned_products)
 
-# Product.objects.fetch_all_products()
+# Product.objects.fetch_better_product()
