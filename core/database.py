@@ -3,7 +3,7 @@ import db_config
 
 class Sql:
     """
-    Manage the connection to SQL and creates
+    Manage the SQL connection and creates
     all the tables in the database
     """
     def __init__(self):
