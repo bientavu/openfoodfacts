@@ -38,3 +38,13 @@ def is_valid_suggested_product_response(response):
         return True
     else:
         return False
+
+def is_valid_favorites_response(response):
+    """
+    Cheking if the favorites input is True or False to continue
+    Otherwise the favorites message keeps repeating
+    """
+    if response in ['1', '2', '3']:
+        return True
+    else:
+        return False
