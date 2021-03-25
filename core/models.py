@@ -44,7 +44,7 @@ class Substitute:
 
     def __init__(self, id_product_to_substitute, id_product_substitute):
         """
-        Initialization of the products
+        Initialization of the products :
         (Product to substitute and Product substitute)
         """
         self.id = None
