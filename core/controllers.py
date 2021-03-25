@@ -17,6 +17,8 @@ class Controller:
         self.product = product
         self.category_choice = None
         self.product_choice = None
+        self.selected_product = None
+        self.better_product = None
 
     def run(self):
         """
@@ -39,6 +41,7 @@ class Controller:
             response = self.view.welcome_menu()
             if input_validators.is_valid_welcome_response(response):
                 break
+
         if response == '1':
             return self.choosecategory_menu
         elif response == '2':
@@ -93,20 +96,21 @@ class Controller:
         Calling the product he chose and a random substitute from managers.py
         Calling a view from view.py and the input gets a validation
         """
-        selected_product = Product.objects.fetch_selected_product(self.product_choice)
-        better_product = Product.objects.fetch_better_product(self.category_choice)
+        self.selected_product = Product.objects.fetch_selected_product(self.product_choice)
+        self.better_product = Product.objects.fetch_better_product(self.category_choice)
         while True:
-            response = self.view.foodsuggestion(selected_product, better_product)
-            if input_validators.is_valid_suggested_product_response(response, selected_product):
+            response = self.view.foodsuggestion(self.selected_product, self.better_product)
+            if input_validators.is_valid_suggested_product_response(response):
                 break
 
-        # if response in [str(index) for index, category in enumerate(product, start = 1)]:
-        #     self.product_choice = product[int(response) - 1]
-        #     return self.choosefood_menu
-        # elif response == str(len(product) + 1):
-        #     return self.welcome_menu
-        # elif response == str(len(product) + 2):
-        #     return self.quit
+        if response == '1':
+            return Substitute.objects.insert_substitute(self.selected_product, self.better_product)
+        elif response == '2':
+            return 
+        elif response == '3':
+            return self.welcome_menu
+        elif response == '4':
+            return self.quit
 
     def substitutelisting(self):
         pass

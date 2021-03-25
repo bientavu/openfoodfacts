@@ -135,7 +135,6 @@ class CategoryManager(BaseManager):
         module into the SQL Category table
         """
         mycursor = self.db.connection.cursor()
-        # mycursor.execute('USE openfoodfacts')
         sql = "INSERT INTO Category (name_cat) VALUES (%(cat_name)s)"
         for category in CATEGORIES:
             mycursor.execute(sql, {'cat_name' : category})
@@ -162,4 +161,21 @@ class SubstituteManager(BaseManager):
     """
     Manage the substitutes in the SQL database
     """
-    pass
+    def insert_substitute(self, selected_product, better_product):
+        """
+        Inserts substitutes into the SQL table
+        when the user choose this option
+        """
+        pprint(selected_product)
+        pprint(better_product)
+        mycursor = self.db.connection.cursor()
+        mycursor.execute("""
+        INSERT INTO Substitute (id_product_to_substitute, id_product_substitute)
+        VALUES (%(id_product_to_substitute)s, %(id_product_substitute)s)
+        """,
+        {"id_product_to_substitute" : selected_product[0].id},
+        {"id_product_substitute" : better_product[0].id})
+
+        self.db.connection.commit()
+
+
