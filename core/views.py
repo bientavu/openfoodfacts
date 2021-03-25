@@ -33,11 +33,11 @@ class View:
     def welcome_menu(self):
         """
         First menu message where the user choose between
-        substitute a product, access his history or quit the program
+        substitute a product, access his favorites or quit the program
         """
         print("")
         menu_choice = input(
-            "Souhaitez-vous:\n"
+            "Souhaitez-vous :\n"
             "1. Choisir une catégorie pour trouver un produit à substituer\n"
             "2. Accéder aux favoris des produits subtitués\n"
             "3. Quitter le programme\n"
@@ -103,9 +103,9 @@ class View:
 
     def foodsuggestion(self, selected_product, better_product):
         """
-        Last menu message where the selected product and a better one
-        is displayed. User can save the products, access his history
-        or quit the program
+        Fourth menu message where the selected product and a better one
+        is displayed. User can save the products, access his favorites,
+        go back to the welcome menu or quit the program
         """
         for product in selected_product:
             product_name_cleaned = product.name.replace('\n', ' ')
@@ -128,13 +128,31 @@ class View:
             )
         
         return input(
-            "Veuillez sélectionner une action :\n"
+            "Souhaitez-vous :\n"
             "1. Enregistrer ce substitut dans les favoris\n"
             "2. Accéder aux favoris des produits subtitués\n"
             "3. Revenir à l'acceuil\n"
             "4. Quitter le programme\n"
             "\nQuel est votre choix ? (Tapez le numéro correspondant) : "
              )
+
+    def products_added_to_favorites(self):
+        """
+        Last menu message where a mesage confirms that the
+        products have been added to favorites.
+        User access his favorites, go back to the welcome menu
+        or quit the program
+        """
+        print("\nLes produits ont bien été ajoutés aux favoris !\n")
+        menu_choice = input(
+            "Souhaitez-vous :\n"
+            "1. Accéder aux favoris des produits subtitués\n"
+            "2. Revenir à l'acceuil\n"
+            "3. Quitter le programme\n"
+            "\nQuel est votre choix ? (Tapez le numéro correspondant) : "
+            )
+            
+        return menu_choice
 
     def substitutelisting(self):
         pass

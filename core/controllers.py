@@ -91,7 +91,7 @@ class Controller:
 
     def suggested_food(self):
         """
-        The last menu for the user, where he choose to save his product
+        The fourth menu for the user, where he choose to save his product
         or to enter into his products history.
         Calling the product he chose and a random substitute from managers.py
         Calling a view from view.py and the input gets a validation
@@ -104,12 +104,30 @@ class Controller:
                 break
 
         if response == '1':
-            return Substitute.objects.insert_substitute(self.selected_product, self.better_product)
+            return self.products_added_to_favorites
         elif response == '2':
             return 
         elif response == '3':
             return self.welcome_menu
         elif response == '4':
+            return self.quit
+
+    def products_added_to_favorites(self):
+        """
+        The last menu for the user, where a message confirms
+        that the products has been added to history
+        """
+        # Substitute.objects.insert_substitute(self.selected_product, self.better_product)
+        while True:
+            response = self.view.products_added_to_favorites()
+            if input_validators.is_valid_favorites_response(response):
+                break
+
+        if response == '1':
+            return self.substitutelisting
+        elif response == '2':
+            return self.welcome_menu
+        elif response == '3':
             return self.quit
 
     def substitutelisting(self):
