@@ -23,8 +23,6 @@ Then activate it:
 * Windows: `source venv\Scripts\activate`
 * Mac/Linux: `source env/bin/activate`
 
-Regarding the Openfoodfacts dependency: `pip3 install -r requirements.txt`
-
 Then you can launch the program:
 * Windows: `python main.py`
 * Mac/Linux: `python3 main.py`
