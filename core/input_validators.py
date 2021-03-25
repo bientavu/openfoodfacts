@@ -29,12 +29,12 @@ def is_valid_product_response(response, products):
     else:
         return False
 
-def is_valid_suggested_product_response(response, product):
+def is_valid_suggested_product_response(response):
     """
     Cheking if the input is True or False to continue
     Otherwise the message keeps repeating
     """
-    if response in [str(number) for number in range(1, len(product) + 3)]:
+    if response in ['1', '2', '3', '4']:
         return True
     else:
         return False
