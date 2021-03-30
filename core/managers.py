@@ -42,7 +42,7 @@ class ProductManager(BaseManager):
         """
         mycursor = self.db.connection.cursor()
         mycursor.execute("""
-            SELECT name_product, category_fk, store, nutriscore, link
+            SELECT Product.id, name_product, category_fk, store, nutriscore, link
             FROM Product
             INNER JOIN Category 
             ON Product.category_fk = Category.id
@@ -54,12 +54,14 @@ class ProductManager(BaseManager):
         results = []
 
         for line in myresult:
-            name_product = line[0]
-            category_fk = line[1]
-            store = line[2]
-            nutriscore = line[3]
-            link = line[4]
+            id = line[0]
+            name_product = line[1]
+            category_fk = line[2]
+            store = line[3]
+            nutriscore = line[4]
+            link = line[5]
             results.append(models.Product(
+                id=id,
                 name=name_product,
                 category=category_fk,
                 store=store,
@@ -76,21 +78,22 @@ class ProductManager(BaseManager):
         """
         mycursor = self.db.connection.cursor()
         mycursor.execute("""
-            SELECT name_product, category_fk, store, nutriscore, link
+            SELECT Product.id, name_product, category_fk, store, nutriscore, link
             FROM Product
-            WHERE Product.link = %(product)s""",
-            {"product": product.link}
+            WHERE Product.id = %(product)s""",
+            {"product": product.id}
             )
         myresult = mycursor.fetchone()
 
         results = []
 
         results.append(models.Product(
-            name=myresult[0],
-            category=myresult[1],
-            store=myresult[2],
-            nutriscore=myresult[3],
-            link=myresult[4]
+            id=myresult[0],
+            name=myresult[1],
+            category=myresult[2],
+            store=myresult[3],
+            nutriscore=myresult[4],
+            link=myresult[5]
             ))
 
         return results
@@ -102,7 +105,7 @@ class ProductManager(BaseManager):
         """
         mycursor = self.db.connection.cursor()
         mycursor.execute("""
-            SELECT name_product, category_fk, store, nutriscore, link
+            SELECT Product.id, name_product, category_fk, store, nutriscore, link
             FROM Product
             INNER JOIN Category
             ON Product.category_fk = Category.id
@@ -116,11 +119,12 @@ class ProductManager(BaseManager):
         results = []
 
         results.append(models.Product(
-            name=myresult[0],
-            category=myresult[1],
-            store=myresult[2],
-            nutriscore=myresult[3],
-            link=myresult[4]
+            id = myresult[0],
+            name=myresult[1],
+            category=myresult[2],
+            store=myresult[3],
+            nutriscore=myresult[4],
+            link=myresult[5]
             ))
 
         return results
@@ -173,9 +177,31 @@ class SubstituteManager(BaseManager):
         INSERT INTO Substitute (id_product_to_substitute, id_product_substitute)
         VALUES (%(id_product_to_substitute)s, %(id_product_substitute)s)
         """,
-        {"id_product_to_substitute" : selected_product[0].id},
-        {"id_product_substitute" : better_product[0].id})
+        {"id_product_to_substitute" : selected_product[0].id,
+        "id_product_substitute" : better_product[0].id})
 
         self.db.connection.commit()
 
+    def fetch_substitute_list(self):
+        """
+        Fetch all the substitutes from the SQL Substitute table
+        so that the controllers can call them
+        """
+        mycursor = self.db.connection.cursor()
+        mycursor.execute("""
+            SELECT id_product_to_substitute, id_product_substitute
+            FROM Substitute"""
+            )
+        myresult = mycursor.fetchall()
 
+        results = []
+
+        for line in myresult:
+            id_product_to_substitute = line[0]
+            id_product_substitute = line[1]
+            results.append(models.Substitute(
+                id_product_to_substitute=id_product_to_substitute,
+                id_product_substitute=id_product_substitute,
+                ))
+
+        return results
