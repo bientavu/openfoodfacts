@@ -1,5 +1,4 @@
 import requests
-from pprint import pprint
 from .constants import CATEGORIES
 
 class ProductDownloader:
