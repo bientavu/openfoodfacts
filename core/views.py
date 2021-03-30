@@ -154,8 +154,32 @@ class View:
             
         return menu_choice
 
-    def substitutelisting(self):
-        pass
+    def substitutelisting(self, substitutes):
+        """
+        Show the substitutes favorites list where you can see
+        your substiute, go back to the welcome menu or quit the program
+        """
+        substitute_list = {}
+        for position, product in enumerate(substitutes, start=1):
+            substitute_list[position] = f"To Subsitute : {product.id_product_to_substitute} | Substitute : {product.id_product_substitute}\n"
+        substitute_list[position + 1] = "Revenir à l'acceuil"
+        substitute_list[position + 2] = "Quitter le programme"
+
+        substitute_list_as_string = []
+        for key, value in substitute_list.items():
+            value_string = f"{key}. {value}\n"
+            substitute_list_as_string.append(value_string)
+        
+        menu = "".join(substitute_list_as_string)
+
+        response = input(
+            "\nVoici votre liste de favoris :\n\n"
+            f"{menu}"
+            "\nQuel est votre choix ? (Tapez le numéro correspondant) : "
+            )
+        print("")
+
+        return response            
 
     def quit(self):
         """
