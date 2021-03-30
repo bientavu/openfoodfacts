@@ -106,7 +106,7 @@ class Controller:
         if response == '1':
             return self.products_added_to_favorites
         elif response == '2':
-            return 
+            return self.substitutelisting
         elif response == '3':
             return self.welcome_menu
         elif response == '4':
@@ -117,7 +117,7 @@ class Controller:
         The last menu for the user, where a message confirms
         that the products has been added to history
         """
-        # Substitute.objects.insert_substitute(self.selected_product, self.better_product)
+        Substitute.objects.insert_substitute(self.selected_product, self.better_product)
         while True:
             response = self.view.products_added_to_favorites()
             if input_validators.is_valid_favorites_response(response):
@@ -131,7 +131,23 @@ class Controller:
             return self.quit
 
     def substitutelisting(self):
-        pass
+        """
+        Show the substitutes favorites list by calling
+        the view method
+        """
+        substitutes = Substitute.objects.fetch_substitute_list()
+        while True:
+            response = self.view.substitutelisting(substitutes)
+            if input_validators.is_valid_favorites_list_response(response):
+                break
+
+        if response in [str(index) for index, category in enumerate(substitutes, start = 1)]:
+            self.substitute_choice = substitutes[int(response) - 1]
+            return self.suggested_food
+        elif response == str(len(substitutes) + 1):
+            return self.welcome_menu
+        elif response == str(len(substitutes) + 2):
+            return self.quit
 
     def quit(self):
         """
