@@ -1,5 +1,3 @@
-from pprint import pprint
-from .models import Category, Product
 
 class View:
     """
