@@ -10,11 +10,11 @@ class Product:
     """
     objects = ProductManager(database)
 
-    def __init__(self, name, store, nutriscore, link, category):
+    def __init__(self, id, name, store, nutriscore, link, category):
         """
         Initialization of the product
         """
-        self.id = None
+        self.id = id
         self.name = name
         self.store = store
         self.nutriscore = nutriscore
