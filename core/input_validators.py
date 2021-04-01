@@ -49,12 +49,12 @@ def is_valid_favorites_response(response):
     else:
         return False
 
-def is_valid_favorites_list_response(response):
+def is_valid_favorites_list_response(response, substitutes):
     """
     Cheking if the favorites input is True or False to continue
     Otherwise the favorites message keeps repeating
     """
-    if response in ['1', '2']:
+    if response in [str(number) for number in range(1, len(substitutes) + 3)]:
         return True
     else:
         return False
