@@ -170,8 +170,6 @@ class SubstituteManager(BaseManager):
         Inserts substitutes into the SQL table
         when the user choose this option
         """
-        pprint(selected_product)
-        pprint(better_product)
         mycursor = self.db.connection.cursor()
         mycursor.execute("""
         INSERT INTO Substitute (id_product_to_substitute, id_product_substitute)
@@ -189,19 +187,22 @@ class SubstituteManager(BaseManager):
         """
         mycursor = self.db.connection.cursor()
         mycursor.execute("""
-            SELECT id_product_to_substitute, id_product_substitute
-            FROM Substitute"""
-            )
+            SELECT selected_product.id, selected_product.name_product,
+            selected_product.store, selected_product.nutriscore,
+            selected_product.link, selected_product.category_fk,
+            better_product.id, better_product.name_product,
+            better_product.store, better_product.nutriscore,
+            better_product.link, better_product.category_fk 
+            FROM Substitute
+            JOIN Product AS selected_product ON Substitute.id_product_to_substitute
+            JOIN Product AS better_product ON Substitute.id_product_substitute;
+            """)
         myresult = mycursor.fetchall()
+        pprint(myresult)
 
         results = []
 
-        for line in myresult:
-            id_product_to_substitute = line[0]
-            id_product_substitute = line[1]
-            results.append(models.Substitute(
-                id_product_to_substitute=id_product_to_substitute,
-                id_product_substitute=id_product_substitute,
-                ))
+        for result in myresult:
+            results.append((models.Product(*result[:6]), models.Product(*result[6:])))
 
-        return results
+        # return results
