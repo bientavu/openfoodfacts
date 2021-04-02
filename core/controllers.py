@@ -1,3 +1,4 @@
+from pprint import pprint
 from .models import Product, Category, Substitute
 from . import input_validators
 
@@ -138,16 +139,28 @@ class Controller:
         substitutes = Substitute.objects.fetch_substitute_list()
         while True:
             response = self.view.substitutelisting(substitutes)
-            if input_validators.is_valid_favorites_list_response(response):
+            if input_validators.is_valid_favorites_list_response(response, substitutes):
                 break
 
         if response in [str(index) for index, category in enumerate(substitutes, start = 1)]:
             self.substitute_choice = substitutes[int(response) - 1]
-            return self.suggested_food
+            return self.subtitutes_details
         elif response == str(len(substitutes) + 1):
             return self.welcome_menu
         elif response == str(len(substitutes) + 2):
             return self.quit
+
+    def subtitutes_details(self):
+        """
+        Show the details of the products when accessing
+        via the favorites list
+        """
+        while True:
+            response = self.view.product_details_from_fav_list(self.substitute_choice)
+            if input_validators.is_valid_favorites_list_response(response, self.substitute_choice):
+                break
+
+        
 
     def quit(self):
         """

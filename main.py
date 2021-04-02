@@ -1,6 +1,6 @@
 from pprint import pprint
 from core.database import Sql
-from core.models import Category, Product
+from core.models import Category, Product, Substitute
 from core.openfoodfacts import ProductDownloader, ProductCleaner
 from core.views import View
 from core.controllers import Controller
@@ -27,4 +27,3 @@ program_controller.run()
 
 # Product.objects.insert_product(cleaned_products)
 
-# Product.objects.fetch_better_product()

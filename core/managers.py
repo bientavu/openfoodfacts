@@ -194,15 +194,14 @@ class SubstituteManager(BaseManager):
             better_product.store, better_product.nutriscore,
             better_product.link, better_product.category_fk 
             FROM Substitute
-            JOIN Product AS selected_product ON Substitute.id_product_to_substitute
-            JOIN Product AS better_product ON Substitute.id_product_substitute;
+            JOIN Product AS selected_product ON Substitute.id_product_to_substitute = selected_product.id
+            JOIN Product AS better_product ON Substitute.id_product_substitute = better_product.id
             """)
         myresult = mycursor.fetchall()
-        pprint(myresult)
 
         results = []
 
         for result in myresult:
             results.append((models.Product(*result[:6]), models.Product(*result[6:])))
 
-        # return results
+        return results
