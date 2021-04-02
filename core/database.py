@@ -34,10 +34,9 @@ class Sql:
         Tables creation via the .sql file
         """
         mycursor = self.connection.cursor()
-        # mycursor.execute(f'CREATE DATABASE {db_config.DATABASE} CHARACTER SET {db_config.CHARSET} COLLATE {db_config.COLLATION}')
         sql_file = open('script-db/create_db.sql')
         sql_as_string = sql_file.read().split(";")
-        mycursor.execute('USE openfoodfacts4')
+        mycursor.execute('USE openfoodfacts')
         for sql in sql_as_string:
             mycursor.execute(sql)
         self.connection.commit()
