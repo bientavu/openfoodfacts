@@ -185,30 +185,26 @@ class View:
 
     def product_details_from_fav_list(self, products):
         """
-        Fourth menu message where the selected product and a better one
-        is displayed. User can save the products, access his favorites,
-        go back to the welcome menu or quit the program
+        Display the details of the products when user
+        choose from the products from fav list
         """
-        pprint(products)
-        for product in products:
-            # product_name_cleaned = product[0].name.replace('\n', ' ')
-            print(
-            "-----------Produit à substituer----------\n"
-            f"Nom du produit : {product[0].name}\n"
-            f"Nutriscore : {product[0].nutriscore}\n"
-            f"Magasin(s) : {product[0].store}\n"
-            f"Lien openfoodfacts : {product[0].link}\n"
-            )
+        product_name_cleaned = products[0].name.replace('\n', ' ')
+        print(
+        "-----------Produit à substituer----------\n"
+        f"Nom du produit : {product_name_cleaned}\n"
+        f"Nutriscore : {products[0].nutriscore}\n"
+        f"Magasin(s) : {products[0].store}\n"
+        f"Lien openfoodfacts : {products[0].link}\n"
+        )
 
-        for product in products:
-            # product_name_cleaned_2 = product[1].name.replace('\n', ' ')
-            print(
-            "------------Produit substitut------------\n"
-            f"Nom du produit : {product[1].name}\n"
-            f"Nutriscore : {product[1].nutriscore}\n"
-            f"Magasin(s) : {product[1].store}\n"
-            f"Lien openfoodfacts : {product[1].link}\n"
-            )
+        product_name_cleaned_2 = products[1].name.replace('\n', ' ')
+        print(
+        "------------Produit substitut------------\n"
+        f"Nom du produit : {product_name_cleaned_2}\n"
+        f"Nutriscore : {products[1].nutriscore}\n"
+        f"Magasin(s) : {products[1].store}\n"
+        f"Lien openfoodfacts : {products[1].link}\n"
+        )
         
         return input(
             "Souhaitez-vous :\n"
