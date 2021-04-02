@@ -50,6 +50,3 @@ class Substitute:
         self.id = None
         self.id_product_to_substitute = id_product_to_substitute
         self.id_product_substitute = id_product_substitute
-
-
-
