@@ -1,4 +1,4 @@
-
+from pprint import pprint
 class View:
     """
     Regroups all the views that the user is facing
@@ -159,7 +159,9 @@ class View:
         """
         substitute_list = {}
         for position, product in enumerate(substitutes, start=1):
-            substitute_list[position] = f"To Subsitute : {product.id_product_to_substitute} | Substitute : {product.id_product_substitute}\n"
+            product_name_cleaned = product[0].name.replace('\n', ' ')
+            product_name_cleaned_2 = product[1].name.replace('\n', ' ')
+            substitute_list[position] = f"Produit à substituer : {product_name_cleaned} (Nutriscore : {product[0].nutriscore}) \n   Produit substitut : {product_name_cleaned_2} (Nutriscore : {product[1].nutriscore})\n"
         substitute_list[position + 1] = "Revenir à l'acceuil"
         substitute_list[position + 2] = "Quitter le programme"
 
@@ -173,11 +175,48 @@ class View:
         response = input(
             "\nVoici votre liste de favoris :\n\n"
             f"{menu}"
+            "\nVous pouvez accéder aux détails des produits en sélectionnant " 
+            "la paire de produits dont vous souhaitez voir les détails. "
             "\nQuel est votre choix ? (Tapez le numéro correspondant) : "
             )
         print("")
 
-        return response            
+        return response   
+
+    def product_details_from_fav_list(self, products):
+        """
+        Fourth menu message where the selected product and a better one
+        is displayed. User can save the products, access his favorites,
+        go back to the welcome menu or quit the program
+        """
+        pprint(products)
+        for product in products:
+            # product_name_cleaned = product[0].name.replace('\n', ' ')
+            print(
+            "-----------Produit à substituer----------\n"
+            f"Nom du produit : {product[0].name}\n"
+            f"Nutriscore : {product[0].nutriscore}\n"
+            f"Magasin(s) : {product[0].store}\n"
+            f"Lien openfoodfacts : {product[0].link}\n"
+            )
+
+        for product in products:
+            # product_name_cleaned_2 = product[1].name.replace('\n', ' ')
+            print(
+            "------------Produit substitut------------\n"
+            f"Nom du produit : {product[1].name}\n"
+            f"Nutriscore : {product[1].nutriscore}\n"
+            f"Magasin(s) : {product[1].store}\n"
+            f"Lien openfoodfacts : {product[1].link}\n"
+            )
+        
+        return input(
+            "Souhaitez-vous :\n"
+            "1. Retourner aux favoris des produits subtitués\n"
+            "2. Revenir à l'acceuil\n"
+            "3. Quitter le programme\n"
+            "\nQuel est votre choix ? (Tapez le numéro correspondant) : "
+             )         
 
     def quit(self):
         """
