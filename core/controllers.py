@@ -160,7 +160,12 @@ class Controller:
             if input_validators.is_valid_favorites_list_response(response, self.substitute_choice):
                 break
 
-        
+        if response == '1':
+            return self.substitutelisting
+        elif response == '2':
+            return self.welcome_menu
+        elif response == '3':
+            return self.quit
 
     def quit(self):
         """
