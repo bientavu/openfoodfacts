@@ -10,21 +10,13 @@ All the informations are taken from the Openfoodfacts website.
 
 ## **Prerequesites**
 1. Python must be installed on your computer
-2. You have to create a virtual environment
-3. MySQL must be installed on your computer
-4. A MySQL database must be created under the name 'Openfoodfacts'
-5. You need to put your database credentials in db-config.py
+2. MySQL must be installed on your computer
+3. A MySQL database must be created under the name 'openfoodfacts'
+4. You need to put your database credentials in db-config.py
 
-For the virtual environment you need to create:
-* Windows: `py -3.8 -m venv env`
-* Mac/Linux: `python3 -m venv env`
-
-Then activate it: 
-* Windows: `source venv\Scripts\activate`
-* Mac/Linux: `source env/bin/activate`
-
-Then you can launch the program:
-* Windows: `python main.py`
-* Mac/Linux: `python3 main.py`
+## **How to launch**
+1. `pipenv install` (if virtual environment not already installed)
+2. `python3 -m core.install`
+3. `python3 main.py`
 
 Enjoy!
