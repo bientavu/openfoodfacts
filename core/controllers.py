@@ -1,8 +1,5 @@
-from pprint import pprint
 from .models import Product, Category, Substitute
 from . import input_validators
-
-# product = Product()
 
 class Controller:
     """
@@ -138,6 +135,9 @@ class Controller:
         """
         substitutes = Substitute.objects.fetch_substitute_list()
         while True:
+            if substitutes == []:
+                print("\nVous n'avez pas encore enregistré de produit")
+                return self.welcome_menu
             response = self.view.substitutelisting(substitutes)
             if input_validators.is_valid_favorites_list_response(response, substitutes):
                 break
