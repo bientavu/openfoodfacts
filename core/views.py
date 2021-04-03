@@ -1,4 +1,4 @@
-from pprint import pprint
+
 class View:
     """
     Regroups all the views that the user is facing

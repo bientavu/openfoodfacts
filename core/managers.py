@@ -1,6 +1,5 @@
 from . import models
 from .constants import CATEGORIES
-from pprint import pprint
 
 class BaseManager:
     """
