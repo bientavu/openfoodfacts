@@ -5,6 +5,11 @@ CATEGORIES = ['steaks-de-boeuf',
               'yaourts-vanille',
               'jus-de-pomme',
               'saumons',
-              'laits-de-vache']
-
-
+              'laits-de-vache',
+              'compotes',
+              'glaces',
+              'sodas',
+              'brioches',
+              'thons',
+              'pizzas',
+              'porc']
