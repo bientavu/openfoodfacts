@@ -3,11 +3,13 @@ from .database import Sql
 
 database = Sql()
 
+
 class Product:
     """
     Reprensents a food product with his name, nutriscore,
     category, where we can buy it and a openfoodfacts link
     """
+
     objects = ProductManager(database)
 
     def __init__(self, id, name, store, nutriscore, link, category):
@@ -26,6 +28,7 @@ class Category:
     """
     Reprensents a category where multiples products are into
     """
+
     objects = CategoryManager(database)
 
     def __init__(self, name_cat):
@@ -40,6 +43,7 @@ class Substitute:
     """
     Reprensents a product to substitute with his substitute
     """
+
     objects = SubstituteManager(database)
 
     def __init__(self, id_product_to_substitute, id_product_substitute):

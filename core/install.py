@@ -2,6 +2,7 @@ from core.database import Sql
 from core.models import Category, Product
 from core.openfoodfacts import ProductDownloader, ProductCleaner
 
+
 def main():
     """
     Tables creation + products informations insertion
@@ -18,6 +19,7 @@ def main():
     cleaned_products = cleaner.clean(products_dict)
 
     Product.objects.insert_product(cleaned_products)
+
 
 if __name__ == "__main__":
     main()

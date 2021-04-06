@@ -1,20 +1,24 @@
 from . import models
 from .constants import CATEGORIES
 
+
 class BaseManager:
     """
     Connects all the managers to SQL by using database.py
     """
+
     def __init__(self, connection):
         """
         Database connection
         """
         self.db = connection
 
+
 class ProductManager(BaseManager):
     """
     Manage the products in the SQL database
     """
+
     def insert_product(self, products):
         """
         Inserts all the products into the SQL Product table
@@ -25,13 +29,16 @@ class ProductManager(BaseManager):
         VALUES (%(name_product)s, (SELECT id FROM Category WHERE name_cat=%(name_cat)s), %(store)s, %(nutriscore)s, %(link)s)
         """
         for product in products:
-            mycursor.execute(sql, {
-                'name_product' : product['product_name'],
-                'name_cat' : product['main_category'],
-                'store' : product['stores'],
-                'nutriscore' : product['nutriscore_grade'],
-                'link' : product['url']
-                })
+            mycursor.execute(
+                sql,
+                {
+                    'name_product': product['product_name'],
+                    'name_cat': product['main_category'],
+                    'store': product['stores'],
+                    'nutriscore': product['nutriscore_grade'],
+                    'link': product['url'],
+                },
+            )
         self.db.connection.commit()
 
     def fetch_all_products(self, category):
@@ -40,14 +47,15 @@ class ProductManager(BaseManager):
         so that the controllers can call them
         """
         mycursor = self.db.connection.cursor()
-        mycursor.execute("""
+        mycursor.execute(
+            """
             SELECT Product.id, name_product, category_fk, store, nutriscore, link
             FROM Product
             INNER JOIN Category 
             ON Product.category_fk = Category.id
             WHERE Category.name_cat = %(category)s""",
-            {"category": category.name_cat}
-            )
+            {"category": category.name_cat},
+        )
         myresult = mycursor.fetchall()
 
         results = []
@@ -59,14 +67,16 @@ class ProductManager(BaseManager):
             store = line[3]
             nutriscore = line[4]
             link = line[5]
-            results.append(models.Product(
-                id=id,
-                name=name_product,
-                category=category_fk,
-                store=store,
-                nutriscore=nutriscore,
-                link=link
-                ))
+            results.append(
+                models.Product(
+                    id=id,
+                    name=name_product,
+                    category=category_fk,
+                    store=store,
+                    nutriscore=nutriscore,
+                    link=link,
+                )
+            )
 
         return results
 
@@ -76,24 +86,27 @@ class ProductManager(BaseManager):
         SQL Product table so that the controllers can call it
         """
         mycursor = self.db.connection.cursor()
-        mycursor.execute("""
+        mycursor.execute(
+            """
             SELECT Product.id, name_product, category_fk, store, nutriscore, link
             FROM Product
             WHERE Product.id = %(product)s""",
-            {"product": product.id}
-            )
+            {"product": product.id},
+        )
         myresult = mycursor.fetchone()
 
         results = []
 
-        results.append(models.Product(
-            id=myresult[0],
-            name=myresult[1],
-            category=myresult[2],
-            store=myresult[3],
-            nutriscore=myresult[4],
-            link=myresult[5]
-            ))
+        results.append(
+            models.Product(
+                id=myresult[0],
+                name=myresult[1],
+                category=myresult[2],
+                store=myresult[3],
+                nutriscore=myresult[4],
+                link=myresult[5],
+            )
+        )
 
         return results
 
@@ -103,7 +116,8 @@ class ProductManager(BaseManager):
         that is better than the one selected by the user
         """
         mycursor = self.db.connection.cursor()
-        mycursor.execute("""
+        mycursor.execute(
+            """
             SELECT Product.id, name_product, category_fk, store, nutriscore, link
             FROM Product
             INNER JOIN Category
@@ -112,26 +126,31 @@ class ProductManager(BaseManager):
             AND (Product.nutriscore = 'a' OR Product.nutriscore = 'b')
             ORDER BY RAND()
             LIMIT 1""",
-            {"category": category.name_cat})
+            {"category": category.name_cat},
+        )
         myresult = mycursor.fetchone()
 
         results = []
 
-        results.append(models.Product(
-            id = myresult[0],
-            name=myresult[1],
-            category=myresult[2],
-            store=myresult[3],
-            nutriscore=myresult[4],
-            link=myresult[5]
-            ))
+        results.append(
+            models.Product(
+                id=myresult[0],
+                name=myresult[1],
+                category=myresult[2],
+                store=myresult[3],
+                nutriscore=myresult[4],
+                link=myresult[5],
+            )
+        )
 
         return results
-    
+
+
 class CategoryManager(BaseManager):
     """
     Manage the categories in the SQL database
     """
+
     def insert_categories(self):
         """
         Inserts all the categories from the constant.py
@@ -140,7 +159,7 @@ class CategoryManager(BaseManager):
         mycursor = self.db.connection.cursor()
         sql = "INSERT INTO Category (name_cat) VALUES (%(cat_name)s)"
         for category in CATEGORIES:
-            mycursor.execute(sql, {'cat_name' : category})
+            mycursor.execute(sql, {'cat_name': category})
         self.db.connection.commit()
 
     def fetch_all_categories(self):
@@ -160,22 +179,28 @@ class CategoryManager(BaseManager):
 
         return results
 
+
 class SubstituteManager(BaseManager):
     """
     Manage the substitutes in the SQL database
     """
+
     def insert_substitute(self, selected_product, better_product):
         """
         Inserts substitutes into the SQL table
         when the user choose this option
         """
         mycursor = self.db.connection.cursor()
-        mycursor.execute("""
+        mycursor.execute(
+            """
         INSERT INTO Substitute (id_product_to_substitute, id_product_substitute)
         VALUES (%(id_product_to_substitute)s, %(id_product_substitute)s)
         """,
-        {"id_product_to_substitute" : selected_product[0].id,
-        "id_product_substitute" : better_product[0].id})
+            {
+                "id_product_to_substitute": selected_product[0].id,
+                "id_product_substitute": better_product[0].id,
+            },
+        )
 
         self.db.connection.commit()
 
@@ -185,7 +210,8 @@ class SubstituteManager(BaseManager):
         so that the controllers can call them
         """
         mycursor = self.db.connection.cursor()
-        mycursor.execute("""
+        mycursor.execute(
+            """
             SELECT selected_product.id, selected_product.name_product,
             selected_product.store, selected_product.nutriscore,
             selected_product.link, selected_product.category_fk,
@@ -195,12 +221,15 @@ class SubstituteManager(BaseManager):
             FROM Substitute
             JOIN Product AS selected_product ON Substitute.id_product_to_substitute = selected_product.id
             JOIN Product AS better_product ON Substitute.id_product_substitute = better_product.id
-            """)
+            """
+        )
         myresult = mycursor.fetchall()
 
         results = []
 
         for result in myresult:
-            results.append((models.Product(*result[:6]), models.Product(*result[6:])))
+            results.append(
+                (models.Product(*result[:6]), models.Product(*result[6:]))
+            )
 
         return results

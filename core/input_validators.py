@@ -1,4 +1,3 @@
-
 def is_valid_welcome_response(response):
     """
     Cheking if the welcome input is True or False to continue
@@ -8,6 +7,7 @@ def is_valid_welcome_response(response):
         return True
     else:
         return False
+
 
 def is_valid_category_response(response, categories):
     """
@@ -19,6 +19,7 @@ def is_valid_category_response(response, categories):
     else:
         return False
 
+
 def is_valid_product_response(response, products):
     """
     Cheking if the product input is True or False to continue
@@ -28,6 +29,7 @@ def is_valid_product_response(response, products):
         return True
     else:
         return False
+
 
 def is_valid_suggested_product_response(response):
     """
@@ -39,6 +41,7 @@ def is_valid_suggested_product_response(response):
     else:
         return False
 
+
 def is_valid_favorites_response(response):
     """
     Cheking if the favorites input is True or False to continue
@@ -48,6 +51,7 @@ def is_valid_favorites_response(response):
         return True
     else:
         return False
+
 
 def is_valid_favorites_list_response(response, substitutes):
     """
