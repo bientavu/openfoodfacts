@@ -166,8 +166,8 @@ class View:
             product_name_cleaned = product[0].name.replace('\n', ' ')
             product_name_cleaned_2 = product[1].name.replace('\n', ' ')
             substitute_list[position] = (
-                f"Produit à substituer : {product_name_cleaned} (Nutriscore : {product[0].nutriscore}) \n"
-                f"Produit substitut : {product_name_cleaned_2} (Nutriscore : {product[1].nutriscore})\n"
+                f"Produit à substituer : {product_name_cleaned} (Nutriscore : {product[0].nutriscore})\n"
+                f"   Produit substitut : {product_name_cleaned_2} (Nutriscore : {product[1].nutriscore})\n"
             )
         substitute_list[position + 1] = "Revenir à l'acceuil"
         substitute_list[position + 2] = "Quitter le programme"
