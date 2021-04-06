@@ -8,6 +8,8 @@ requests = "*"
 mysql-connector-python = "*"
 
 [dev-packages]
+flake8 = "*"
+black = "==20.8b1"
 
 [requires]
 python_version = "3.8"
